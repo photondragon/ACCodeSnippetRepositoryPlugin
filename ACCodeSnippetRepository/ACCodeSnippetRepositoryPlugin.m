@@ -14,7 +14,8 @@
 
 
 static ACCodeSnippetRepositoryPlugin *sharedPlugin;
-static NSString * const pluginMenuTitle = @"Plug-ins";
+//static NSString * const pluginMenuTitle = @"Plug-ins";
+static NSString * const pluginMenuTitle = @"ACCodeSnippetRepositoryPlugin";
 
 @interface ACCodeSnippetRepositoryPlugin()
 @property (nonatomic, strong) NSBundle *bundle;
@@ -99,18 +100,21 @@ static NSString * const pluginMenuTitle = @"Plug-ins";
 #pragma mark - Menu and actions
 
 - (NSMenu*)pluginMenu {
-    NSMenu *pluginMenu = [[[NSApp mainMenu] itemWithTitle:pluginMenuTitle] submenu];
+//    NSMenu *pluginMenu = [[[NSApp mainMenu] itemWithTitle:pluginMenuTitle] submenu];
+	NSMenu *menuWindow = [[[NSApp mainMenu] itemWithTitle:@"Window"] submenu];
+	NSMenu *pluginMenu = [[menuWindow itemWithTitle:pluginMenuTitle] submenu];
     if (!pluginMenu) {
         pluginMenu = [[NSMenu alloc] initWithTitle:pluginMenuTitle];
         
         NSMenuItem *pluginMenuItem = [[NSMenuItem alloc] initWithTitle:pluginMenuTitle action: NULL keyEquivalent:@""];
         pluginMenuItem.submenu = pluginMenu;
-	    
-	    NSMenu *appMenu = [NSApp menu];
-	    
-	    NSMenuItem *helpMenuItem = [appMenu itemWithTitle: @"Help"];
-	    
-	    [appMenu insertItem: pluginMenuItem atIndex: [appMenu indexOfItem: helpMenuItem]];
+
+		[menuWindow addItem:pluginMenuItem];
+//	    NSMenu *appMenu = [NSApp menu];
+//	    
+//	    NSMenuItem *helpMenuItem = [appMenu itemWithTitle: @"Help"];
+//	    
+//	    [appMenu insertItem: pluginMenuItem atIndex: [appMenu indexOfItem: helpMenuItem]];
     }
     return pluginMenu;
 }
